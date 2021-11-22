@@ -9,7 +9,7 @@ export const Layout = ({ children }: any) => {
       <CSSReset />
       <Flex flexDirection="column" minH="100vh" minW="100vw">
         <Header />
-        <Box flexGrow={1} px={2}>
+        <Box flexGrow={1} px={2} mt={2}>
           <main>{children}</main>
         </Box>
         <BottomNavigation />

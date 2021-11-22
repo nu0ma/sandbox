@@ -3,6 +3,6 @@ import firebase from '../firebase';
 
 const db = firebase.firestore();
 
-export const createUser = (data: User) => {
-  return db.collection('users').add(data);
+export const createUser = async (data: User) => {
+  return db.collection('users').doc(data.uid).set(data);
 };

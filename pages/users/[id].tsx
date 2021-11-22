@@ -1,11 +1,10 @@
-import { useAuth } from '@/context/useAuth';
-import { Box, Text } from '@chakra-ui/react';
+import { MenuInput } from '@/components/Menu/MenuInput';
+import { Box } from '@chakra-ui/react';
 
 const UserPage = () => {
-  const { user } = useAuth();
   return (
     <Box>
-      <Text>User Name：{user?.name}</Text>
+      <MenuInput />
     </Box>
   );
 };

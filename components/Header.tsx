@@ -7,8 +7,8 @@ import { ThemeButton } from '@/components/ThemeButton';
 export const Header = () => {
   const { user } = useAuth();
   return (
-    <Flex justifyContent="flex-end" p={2}>
-      <Text>Logo</Text>
+    <Flex justifyContent="flex-end" alignItems="center" p={2}>
+      <Text fontWeight="bold">💪 Training Memo</Text>
       <Spacer></Spacer>
       <HStack>
         {user ? <Settings /> : <></>}

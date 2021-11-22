@@ -4,6 +4,7 @@ import { FaGoogle } from 'react-icons/fa';
 
 export const Login = () => {
   const { signInWithGoogle } = useAuth();
+
   return (
     <Button
       leftIcon={<FaGoogle />}
