@@ -11,11 +11,10 @@ import {
 
 import { useForm } from 'react-hook-form';
 
-type FormInputs = {
-  menu: string;
-  weight: string;
-  rep: string;
-};
+import { Menu } from '@/types/menu';
+import { useAuth } from '@/context/useAuth';
+import dayjs from 'dayjs';
+import { createMenu } from '@/lib/db';
 
 export const MenuInput = () => {
   const {
@@ -26,8 +25,12 @@ export const MenuInput = () => {
 
   const toast = useToast();
 
-  const onSubmit = (data: FormInputs) => {
-    console.log(data);
+  const { user } = useAuth();
+
+  const onSubmit = (data: Menu) => {
+    if (!user) return;
+    createMenu(user.uid, data);
+
     toast({
       title: '追加',
       status: 'success',
