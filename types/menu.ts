@@ -2,6 +2,6 @@ export type Menu = {
   menu: string;
   weight: number;
   rep: number;
-  date: string;
+  createdAt: string;
   userId: string;
 };

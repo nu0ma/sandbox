@@ -41,7 +41,7 @@ export const MenuInput = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Flex justifyContent="center" flexDirection="column" maxW="lg">
-        <FormControl isInvalid={errors.menu ? true : false}>
+        <FormControl isInvalid={errors.menu ? true : false} mt={2}>
           <FormLabel>種目</FormLabel>
           <Input
             autoComplete="off"
@@ -54,7 +54,7 @@ export const MenuInput = () => {
           </FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={errors.weight ? true : false}>
+        <FormControl isInvalid={errors.weight ? true : false} mt={2}>
           <FormLabel>重量</FormLabel>
           <Input
             type="number"
@@ -67,7 +67,7 @@ export const MenuInput = () => {
           </FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={errors.rep ? true : false}>
+        <FormControl isInvalid={errors.rep ? true : false} mt={2}>
           <FormLabel>レップ数</FormLabel>
           <Input
             type="number"
@@ -75,6 +75,9 @@ export const MenuInput = () => {
               required: 'レップ数を入力してください',
             })}
           ></Input>
+          <FormErrorMessage role="alert">
+            {errors.rep && errors.rep.message}
+          </FormErrorMessage>
         </FormControl>
 
         <Button type="submit" mt="8" colorScheme="teal">
