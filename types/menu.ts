@@ -1,5 +1,5 @@
 export type Menu = {
-  menu: string;
+  name: string;
   weight: number;
   rep: number;
   createdAt: string;

@@ -12,27 +12,38 @@ export const createUser = (data: User) => {
 export const createMenu = (id: string, data: Menu) => {
   return db.collection('menus').add({
     ...data,
-    createdAt: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+    createdAt: new Date(),
     userId: id,
   });
 };
 
 // ユーザが登録したメニューを全て取得
 export const getMenuByUserId = async (userId: string) => {
-  console.log(userId);
-  const result: any = [];
+  const snapShot: any = [];
   const querySnapshot = await db
     .collection('menus')
     .where('userId', '==', userId)
     .get();
 
   querySnapshot.forEach((doc) => {
-    result.push({ id: doc.id, ...doc.data() });
+    snapShot.push({
+      id: doc.id,
+      ...doc.data(),
+    });
   });
 
-  result.sort((a: any, b: any) =>
+  snapShot.sort((a: any, b: any) =>
     compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
   );
+
+  const result = snapShot.map((v) => ({
+    menu: v.menu,
+    weight: v.weight,
+    rep: v.rep,
+    createdAt: format(v.createdAt.toDate(), 'yyyy-MM-dd'),
+    userId: v.userId,
+  }));
+
   return result as Menu[];
 };
 
