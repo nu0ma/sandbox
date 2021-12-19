@@ -13,7 +13,6 @@ import { useForm } from 'react-hook-form';
 
 import { Menu } from '@/types/menu';
 import { useAuth } from '@/context/useAuth';
-import dayjs from 'dayjs';
 import { createMenu } from '@/lib/db';
 
 export const MenuInput = () => {
