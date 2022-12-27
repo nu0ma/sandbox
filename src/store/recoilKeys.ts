@@ -1,7 +1,7 @@
 export enum RecoilKeys {
   TODO_STATE = 'todoState',
   USER_STATE = 'userState',
-  SELECTED_USER_STATE = 'userState',
+  SELECTED_USER_STATE = 'selectedUserState',
   CHARACTER_STATE = 'characterState',
 }
 

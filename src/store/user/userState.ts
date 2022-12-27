@@ -1,7 +1,7 @@
 import { atom, selector, useRecoilCallback, useRecoilValue } from 'recoil';
 
-import { getUser } from '../../api/user';
-import { UserScheme } from '../../types/user';
+import { client } from '@/lib/apiClient';
+
 import { RecoilKeys, RecoilSelector } from '../recoilKeys';
 
 const user = atom({
@@ -12,9 +12,9 @@ const user = atom({
 const userQuery = selector({
   key: RecoilSelector.USER_SELECTED_USER,
   get: async ({ get }) => {
-    const response = await getUser(get(user));
-    const result = UserScheme.parse(response);
-    return result;
+    const userId = String(get(user));
+    const response = await client.user._id(userId).$get();
+    return response;
   },
 });
 
