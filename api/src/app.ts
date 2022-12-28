@@ -1,5 +1,4 @@
 import Fastify from 'fastify';
-import { getUser } from './modules/user/routes/getUser';
 import fs from 'fs';
 import cors from '@fastify/cors';
 
@@ -8,7 +7,7 @@ import swaggerUI from '@fastify/swagger-ui';
 import { withRefResolver } from 'fastify-zod';
 import { healthCheck } from './modules/healthCheck/healthCheck';
 import { userSchemas } from './modules/user/user.schema';
-import { updateUser } from './modules/user/routes/updateUser';
+import { getUser, updateUser } from './modules/user/user.rest';
 
 export const server = Fastify({
   logger: true,
