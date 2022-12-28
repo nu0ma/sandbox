@@ -11,7 +11,7 @@ export const getUserHandler = async(
   const id = req.params.id;
   const result = await getUser(id);
 
-  if(!result.length) {
+  if(result.length === 0) {
     return rep.code(500).send({
       message: "no match user"
     })

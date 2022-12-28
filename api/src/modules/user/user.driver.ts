@@ -5,5 +5,6 @@ export const getUser = async (id: string) => {
     'select name,age from users where id = $1',
     [id]
   );
+  console.log("result:",result.rows)
   return result.rows[0];
 };
