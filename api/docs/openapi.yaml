@@ -55,12 +55,33 @@ components:
             - name
             - age
           additionalProperties: false
+        createUserBody:
+          type: object
+          properties:
+            name:
+              type: string
+            age:
+              type: number
+          required:
+            - name
+            - age
+          additionalProperties: false
+        createUserResponse:
+          type: object
+          properties:
+            status:
+              type: string
+          required:
+            - status
+          additionalProperties: false
       required:
         - getUserParam
         - getUserResponse
         - updateUserParam
         - updateUserBody
         - updateUserResponse
+        - createUserBody
+        - createUserResponse
       additionalProperties: false
 paths:
   /health_check:
@@ -106,3 +127,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/userSchemas/properties/updateUserResponse"
+  /user:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userSchemas/properties/createUserBody"
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/createUserResponse"

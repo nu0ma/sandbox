@@ -18,3 +18,11 @@ export const updateUser = async (id: string, name: string) => {
   console.log('result:', updated.rows);
   return updated.rows[0];
 };
+
+export const createUser = async (name: string, age: number) => {
+  await pool.query('insert into users (name, age) values ($1, $2)', [
+    name,
+    age,
+  ]);
+  return { status: 'ok' };
+};

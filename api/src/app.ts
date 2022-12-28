@@ -7,7 +7,7 @@ import swaggerUI from '@fastify/swagger-ui';
 import { withRefResolver } from 'fastify-zod';
 import { healthCheck } from './modules/healthCheck/healthCheck';
 import { userSchemas } from './modules/user/user.schema';
-import { getUser, updateUser } from './modules/user/user.rest';
+import { createUser, getUser, updateUser } from './modules/user/user.rest';
 
 export const server = Fastify({
   logger: true,
@@ -39,6 +39,7 @@ server.register(swaggerUI, {
 server.register(healthCheck);
 server.register(getUser);
 server.register(updateUser);
+server.register(createUser);
 
 const makeDoc = async () => {
   const responseYaml = await server.inject('/docs/yaml');

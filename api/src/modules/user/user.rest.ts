@@ -1,7 +1,10 @@
 import { FastifyInstance } from 'fastify';
 import { $ref } from './user.schema';
-import { getUserHandler, updateUserHandler } from './user.usecase';
-
+import {
+  createUserHandler,
+  getUserHandler,
+  updateUserHandler,
+} from './user.usecase';
 
 export const getUser = async (server: FastifyInstance) => {
   server.get(
@@ -36,6 +39,17 @@ export const updateUser = async (server: FastifyInstance) => {
   );
 };
 
-
-
-
+export const createUser = async (server: FastifyInstance) => {
+  server.post(
+    '/user',
+    {
+      schema: {
+        body: $ref('createUserBody'),
+        response: {
+          200: $ref('createUserResponse'),
+        },
+      },
+    },
+    createUserHandler
+  );
+};

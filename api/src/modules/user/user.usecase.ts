@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { getUser, updateUser } from './user.driver';
-import { UserParam, UserUpdateBody } from './user.schema';
+import { createUser, getUser, updateUser } from './user.driver';
+import { UserCreateBody, UserParam, UserUpdateBody } from './user.schema';
 
 export const getUserHandler = async (
   req: FastifyRequest<{
@@ -23,5 +23,15 @@ export const updateUserHandler = async (
   const name = req.body.name;
 
   const result = await updateUser(id, name);
+  return result;
+};
+
+export const createUserHandler = async (
+  req: FastifyRequest<{
+    Body: UserCreateBody;
+  }>
+) => {
+  const { name, age } = req.body;
+  const result = await createUser(name, age);
   return result;
 };

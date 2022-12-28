@@ -25,6 +25,15 @@ const updateUserResponse = z.object({
   age: z.number(),
 });
 
+const createUserBody = z.object({
+  name: z.string(),
+  age: z.number(),
+});
+
+const createUserResponse = z.object({
+  status: z.string(),
+});
+
 export const { schemas: userSchemas, $ref } = buildJsonSchemas(
   {
     getUserParam,
@@ -32,6 +41,8 @@ export const { schemas: userSchemas, $ref } = buildJsonSchemas(
     updateUserParam,
     updateUserBody,
     updateUserResponse,
+    createUserBody,
+    createUserResponse,
   },
   {
     $id: 'userSchemas',
@@ -40,3 +51,4 @@ export const { schemas: userSchemas, $ref } = buildJsonSchemas(
 
 export type UserParam = z.infer<typeof getUserParam>;
 export type UserUpdateBody = z.infer<typeof updateUserBody>;
+export type UserCreateBody = z.infer<typeof createUserBody>;
