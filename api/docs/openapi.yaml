@@ -7,7 +7,7 @@ components:
     userSchemas:
       type: object
       properties:
-        params:
+        getUserParam:
           type: object
           properties:
             id:
@@ -15,7 +15,36 @@ components:
           required:
             - id
           additionalProperties: false
-        response:
+        getUserResponse:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              age:
+                type: number
+            required:
+              - name
+              - age
+            additionalProperties: false
+        updateUserParam:
+          type: object
+          properties:
+            id:
+              type: string
+          required:
+            - id
+          additionalProperties: false
+        updateUserBody:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+            - name
+          additionalProperties: false
+        updateUserResponse:
           type: object
           properties:
             name:
@@ -27,10 +56,18 @@ components:
             - age
           additionalProperties: false
       required:
-        - params
-        - response
+        - getUserParam
+        - getUserResponse
+        - updateUserParam
+        - updateUserBody
+        - updateUserResponse
       additionalProperties: false
 paths:
+  /health_check:
+    get:
+      responses:
+        "200":
+          description: Default Response
   "/user/{id}":
     get:
       tags:
@@ -47,4 +84,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/userSchemas/properties/response"
+                $ref: "#/components/schemas/userSchemas/properties/getUserResponse"
+    put:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userSchemas/properties/updateUserBody"
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: id
+          required: true
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/updateUserResponse"

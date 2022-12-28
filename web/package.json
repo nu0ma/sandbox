@@ -10,7 +10,7 @@
     "lint:fix": "eslint --fix --ignore-path .gitignore './**/*.{js,jsx,ts,tsx}' ",
     "test:e2e": "npx playwright test",
     "test:e2e:debug": "npx playwright test --debug",
-    "generate": " npx openapi2aspida -i ../api/docs/openapi.yaml ",
+    "generate": "rm -rf ./api && npx openapi2aspida -i ../api/docs/openapi.yaml ",
     "test:e2e:chrome": "npx playwright test --project=chromium"
   },
   "dependencies": {

@@ -13,8 +13,6 @@ export const User = () => {
     e.preventDefault();
     if (!userId) return;
     setUserId(userId);
-
-    console.log('sub', userId);
   };
 
   return (

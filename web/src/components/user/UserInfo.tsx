@@ -5,7 +5,11 @@ export const UserInfo = () => {
 
   return (
     <>
-      <p className="userName">User Name: {userInfo.name}</p>
+      {userInfo.length > 0 ? (
+        <p className="userName">User Name: {userInfo[0].name}</p>
+      ) : (
+        <p>No Data</p>
+      )}
     </>
   );
 };

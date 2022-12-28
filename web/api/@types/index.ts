@@ -7,5 +7,5 @@ export type UserSchemas = {
   response: {
     name: string
     age: number
-  }
+  }[]
 }

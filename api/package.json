@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p tsconfig.json --outDir dist",
     "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
+    "dev": "nodemon  --exec ts-node src/index.ts",
     "lint:fix": "eslint --fix --ignore-path .gitignore './**/*.{js,ts}' "
   },
   "author": "",
@@ -35,7 +35,8 @@
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
-    "@types/pg": "^8.6.6"
+    "@types/pg": "^8.6.6",
+    "nodemon": "^2.0.20"
   },
   "volta": {
     "node": "18.12.1",
