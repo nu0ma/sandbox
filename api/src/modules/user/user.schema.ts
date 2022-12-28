@@ -34,6 +34,14 @@ const createUserResponse = z.object({
   status: z.string(),
 });
 
+const deleteUserParam = z.object({
+  id: z.string(),
+});
+
+const deleteUserResponse = z.object({
+  status: z.string(),
+});
+
 export const { schemas: userSchemas, $ref } = buildJsonSchemas(
   {
     getUserParam,
@@ -43,6 +51,8 @@ export const { schemas: userSchemas, $ref } = buildJsonSchemas(
     updateUserResponse,
     createUserBody,
     createUserResponse,
+    deleteUserParam,
+    deleteUserResponse,
   },
   {
     $id: 'userSchemas',

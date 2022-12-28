@@ -26,3 +26,8 @@ export const createUser = async (name: string, age: number) => {
   ]);
   return { status: 'ok' };
 };
+
+export const deleteUser = async (id: string) => {
+  await pool.query('delete from users where id = $1', [id]);
+  return { status: 'ok' };
+};

@@ -74,6 +74,22 @@ components:
           required:
             - status
           additionalProperties: false
+        deleteUserParam:
+          type: object
+          properties:
+            id:
+              type: string
+          required:
+            - id
+          additionalProperties: false
+        deleteUserResponse:
+          type: object
+          properties:
+            status:
+              type: string
+          required:
+            - status
+          additionalProperties: false
       required:
         - getUserParam
         - getUserResponse
@@ -82,6 +98,8 @@ components:
         - updateUserResponse
         - createUserBody
         - createUserResponse
+        - deleteUserParam
+        - deleteUserResponse
       additionalProperties: false
 paths:
   /health_check:
@@ -89,6 +107,22 @@ paths:
       responses:
         "200":
           description: Default Response
+  /user:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userSchemas/properties/createUserBody"
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/createUserResponse"
   "/user/{id}":
     get:
       tags:
@@ -127,17 +161,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/userSchemas/properties/updateUserResponse"
-  /user:
-    post:
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/userSchemas/properties/createUserBody"
+    delete:
+      tags:
+        - User
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: id
+          required: true
       responses:
         "200":
           description: Default Response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/userSchemas/properties/createUserResponse"
+                $ref: "#/components/schemas/userSchemas/properties/deleteUserResponse"

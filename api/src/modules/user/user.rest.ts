@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { $ref } from './user.schema';
 import {
   createUserHandler,
+  deleteUserHandler,
   getUserHandler,
   updateUserHandler,
 } from './user.usecase';
@@ -48,8 +49,25 @@ export const createUser = async (server: FastifyInstance) => {
         response: {
           200: $ref('createUserResponse'),
         },
+        tags: ['User'],
       },
     },
     createUserHandler
+  );
+};
+
+export const deleteUser = async (server: FastifyInstance) => {
+  server.delete(
+    '/user/:id',
+    {
+      schema: {
+        params: $ref('deleteUserParam'),
+        response: {
+          200: $ref('deleteUserResponse'),
+        },
+        tags: ['User'],
+      },
+    },
+    deleteUserHandler
   );
 };
