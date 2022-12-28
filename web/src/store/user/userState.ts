@@ -1,6 +1,6 @@
 import { atom, selector, useRecoilCallback, useRecoilValue } from 'recoil';
 
-import { client } from '@/lib/apiClient';
+import { client } from 'web/src/lib/apiClient';
 
 import { RecoilKeys, RecoilSelector } from '../recoilKeys';
 
