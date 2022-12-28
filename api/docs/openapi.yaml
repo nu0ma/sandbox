@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: Sample API using Fastify and Zod.
+  version: 1.0.0
+components:
+  schemas:
+    userSchemas:
+      type: object
+      properties:
+        params:
+          type: object
+          properties:
+            id:
+              type: string
+          required:
+            - id
+          additionalProperties: false
+        response:
+          type: object
+          properties:
+            name:
+              type: string
+            age:
+              type: number
+          required:
+            - name
+            - age
+          additionalProperties: false
+      required:
+        - params
+        - response
+      additionalProperties: false
+paths:
+  "/user/{id}":
+    get:
+      tags:
+        - User
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: id
+          required: true
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/response"
