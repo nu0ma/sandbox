@@ -13,7 +13,7 @@
   - `cd web && yarn && yarn generate && yarn dev`
 
 - DB
-  - `cd api && cd db && ./build.sh`
+  - `cd db && ./build.sh`
 
 ## API Docs
 
