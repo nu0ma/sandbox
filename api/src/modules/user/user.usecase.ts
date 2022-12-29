@@ -1,47 +1,29 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { createUser, deleteUser, getUser, updateUser } from './user.driver';
-import { UserCreateBody, UserParam, UserUpdateBody } from './user.schema';
+import {
+  createUserDriver,
+  deleteUserDriver,
+  getUserDriver,
+  updateUserDriver,
+} from './user.driver';
 
-export const getUserHandler = async (
-  req: FastifyRequest<{
-    Params: UserParam;
-  }>
-) => {
-  const id = req.params.id;
+export const userUseCase = () => {
+  const getUser = async (id: string) => {
+    return await getUserDriver(id);
+  };
 
-  const result = await getUser(id);
-  return result;
-};
+  const updateUser = async (id: string, name: string) => {
+    return await updateUserDriver(id, name);
+  };
+  const createUser = async (name: string, age: number) => {
+    return await createUserDriver(name, age);
+  };
+  const deleteUser = async (id: string) => {
+    return await deleteUserDriver(id);
+  };
 
-export const updateUserHandler = async (
-  req: FastifyRequest<{
-    Params: UserParam;
-    Body: UserUpdateBody;
-  }>
-) => {
-  const { id } = req.params;
-  const name = req.body.name;
-
-  const result = await updateUser(id, name);
-  return result;
-};
-
-export const createUserHandler = async (
-  req: FastifyRequest<{
-    Body: UserCreateBody;
-  }>
-) => {
-  const { name, age } = req.body;
-  const result = await createUser(name, age);
-  return result;
-};
-
-export const deleteUserHandler = async (
-  req: FastifyRequest<{
-    Params: UserParam;
-  }>
-) => {
-  const { id } = req.params;
-  const result = await deleteUser(id);
-  return result;
+  return {
+    getUser,
+    updateUser,
+    createUser,
+    deleteUser,
+  };
 };

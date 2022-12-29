@@ -5,7 +5,7 @@ import {
   deleteUserHandler,
   getUserHandler,
   updateUserHandler,
-} from './user.usecase';
+} from './user.handler';
 
 export const getUser = async (server: FastifyInstance) => {
   server.get(
