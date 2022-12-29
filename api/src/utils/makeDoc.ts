@@ -10,7 +10,7 @@ export const swaggerSetUp = () => {
     withRefResolver({
       openapi: {
         info: {
-          title: 'Sample API using Fastify and Zod.',
+          title: 'Schema Sharing with Fastify and Next.js',
           version: '1.0.0',
         },
       },
