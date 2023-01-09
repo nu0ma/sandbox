@@ -1,0 +1,39 @@
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  age Int
+  organization  Organization @relation(fields: [organization_id],references: [id])
+  organization_id Int
+}
+
+model Organization {
+  id Int @id @default(autoincrement())
+  name String
+  users User[]
+}
+
+// CREATE TABLE organization (
+//   id SERIAL NOT NULL,
+//   name text NOT NULL,
+//   PRIMARY KEY (id)
+// );
+
+// CREATE TABLE users (
+//   id SERIAL NOT NULL,
+//   name text NOT NULL,
+//   age int NOT NULL,
+//   organization_id INT REFERENCES organization(id),
+//   PRIMARY KEY (id)
+// );
+
+
+// model User {
+//   id    Int    @id @default(autoincrement())
+//   posts Post[]
+// }
+
+// model Post {
+//   id       Int  @id @default(autoincrement())
+//   author   User @relation(fields: [authorId], references: [id])
+//   authorId Int // relation scalar field  (used in the `@relation` attribute above)
+// }
