@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - image: api
+          name: api
+          ports:
+            - containerPort: 1323
+          env:
+            - name: DB_HOST
+              value: "{{ .Values.db_host }}"
+            - name: DB_PORT
+              value: "{{ .Values.db_port }}"
+            - name: DB_USER
+              value: "{{ .Values.db_user }}"
+            - name: DB_NAME
+              value: "{{ .Values.db_name }}"
+          envFrom:
+            - secretRef:
+                name: mysecret

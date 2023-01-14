@@ -1,0 +1,4 @@
+db_host: db-svc.default.svc.cluster.local
+db_port: 5432
+db_user: developer
+db_name: example
