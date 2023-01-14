@@ -13,3 +13,5 @@
 - `skaffold dev -f deps.yaml`
 
 ### When everything is run in Skaffold
+
+- wip
