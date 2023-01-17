@@ -3,16 +3,16 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: api
-  name: api-svc
+    app: web-svc
+  name: web-svc
 spec:
   ports:
-    - name: "1323"
-      port: 1323
+    - name: "3000"
+      port: 3000
       protocol: TCP
-      targetPort: 1323
+      targetPort: 3000
   selector:
-    app: api
+    app: web-deployment
   type: NodePort
 status:
   loadBalancer: {}

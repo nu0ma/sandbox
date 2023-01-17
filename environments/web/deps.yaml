@@ -3,3 +3,4 @@ kind: Config
 requires:
   - path: ../db/skaffold.yaml
   - path: ../api/skaffold.yaml
+  - path: ./skaffold.yaml

@@ -1,0 +1,17 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: web-skaffold
+build:
+  artifacts:
+    - image: web
+      context: ../../app/web
+      docker:
+        dockerfile: ../../environments/web/Dockerfile
+deploy:
+  helm:
+    releases:
+      - name: helm
+        chartPath: helm
+        valuesFiles:
+          - helm/values.yaml
