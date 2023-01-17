@@ -14,4 +14,6 @@
 
 ### When everything is run in Skaffold
 
-- wip
+- `cd environments`
+- `skaffold dev -f deps.yaml`
+- Access to localhost:3000
