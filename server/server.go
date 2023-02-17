@@ -2,9 +2,7 @@ package server
 
 import (
 	"context"
-	"database/sql"
-	"go-mock-test/config"
-	"go-mock-test/repository/dao"
+	"go-mock-test/usecase"
 
 	"log"
 
@@ -14,15 +12,7 @@ import (
 func Run() error {
 	ctx := context.Background()
 
-	connStr := config.ConnectionURL
-	db, err := sql.Open("postgres", connStr)
-
-	if err != nil {
-		return err
-	}
-
-	queries := dao.New(db)
-	users, err := queries.GetUser(ctx, 1)
+	users := usecase.GetUser(1, ctx)
 
 	log.Println(users.Name)
 	return nil

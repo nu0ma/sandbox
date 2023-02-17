@@ -1,7 +1,23 @@
-package driver
+package repository
 
-import "go-mock-test/domain"
+import (
+	"context"
+	"database/sql"
+	"go-mock-test/config"
+	"go-mock-test/repository/dao"
+	"log"
+)
 
-type User interface {
-	Update(user *domain.User) error
+func GetUser(id int, ctx context.Context) dao.User {
+	db, err := sql.Open("postgres", config.ConnectionURL)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	queries := dao.New(db)
+	users, err := queries.GetUser(ctx, 1)
+
+	return users
+
 }
