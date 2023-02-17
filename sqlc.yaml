@@ -6,4 +6,4 @@ sql:
     gen:
       go:
         package: "dao"
-        out: "driver/dao"
+        out: "repository/dao"
