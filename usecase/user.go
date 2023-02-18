@@ -16,6 +16,6 @@ func NewUserUsecase(port port.UserPort) *UserUsecase {
 	}
 }
 
-func (u *UserUsecase) GetUser(ctx context.Context, id int) domain.User {
+func (u *UserUsecase) GetUser(ctx context.Context, id int) (domain.User, error) {
 	return u.port.GetUser(ctx, id)
 }

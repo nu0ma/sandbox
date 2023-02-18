@@ -14,10 +14,15 @@ import (
 
 func Run() error {
 	ctx := context.Background()
-	db, err := sql.Open(config.ConnectionURL)
-	userGateway := gateway.NewUserGateway()
+	db, err := sql.Open("postgres", config.ConnectionURL)
 
-	users := usecase.NewUserUsecase()
+	if err != nil {
+		return nil
+	}
+	userGateway := gateway.NewUserGateway(db)
+	userUsecase := usecase.NewUserUsecase(userGateway)
+
+	users, err := userUsecase.GetUser(ctx, 1)
 
 	log.Println(users.Name)
 	return nil
