@@ -2,12 +2,20 @@ package usecase
 
 import (
 	"context"
-	"go-mock-test/repository"
-	"go-mock-test/repository/dao"
+	"go-mock-test/domain"
+	"go-mock-test/port"
 )
 
-func GetUser(id int, ctx context.Context) dao.User {
-	users := repository.GetUser(id, ctx)
+type UserUsecase struct {
+	port port.UserPort
+}
 
-	return users
+func NewUserUsecase(port port.UserPort) *UserUsecase {
+	return &UserUsecase{
+		port: port,
+	}
+}
+
+func (u *UserUsecase) GetUser(ctx context.Context, id int) domain.User {
+	return u.port.GetUser(ctx, id)
 }
