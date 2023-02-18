@@ -5,6 +5,9 @@ import (
 	"database/sql"
 	"go-mock-test/domain"
 	"go-mock-test/driver/dao"
+	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 type UserGateway struct {
@@ -17,12 +20,14 @@ func NewUserGateway(conn *sql.DB) *UserGateway {
 	}
 }
 
-func (g *UserGateway) GetUser(ctx context.Context, id int) (domain.User, error) {
-
-	result, err := g.driver.GetUser(ctx, int32(id))
+func (g *UserGateway) GetUser(ctx echo.Context, id int) (domain.User, error) {
+	result, err := g.driver.GetUser(context.Background(), int32(id))
 
 	if err != nil {
-		return domain.User{}, nil
+		println(err.Error())
+		ctx.JSON(http.StatusNotFound, err.Error())
+		// return nil
+		return domain.User{}, err
 	}
 
 	return domain.User{

@@ -1,18 +1,22 @@
 package server
 
 import (
-	"context"
-	"go-mock-test/rest"
 	"log"
 
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	_ "github.com/lib/pq"
 )
 
 func Run() error {
+	e := echo.New()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
-	ctx := context.Background()
-	users := rest.UserHandler(ctx)
+	UserRoute(e)
 
-	log.Println(users.Name)
+	e.Logger.Fatal(e.Start(":1323"))
+	log.Println("Access")
+
 	return nil
 }

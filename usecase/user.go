@@ -1,9 +1,10 @@
 package usecase
 
 import (
-	"context"
 	"go-mock-test/domain"
 	"go-mock-test/port"
+
+	"github.com/labstack/echo/v4"
 )
 
 type UserUsecase struct {
@@ -16,6 +17,6 @@ func NewUserUsecase(port port.UserPort) *UserUsecase {
 	}
 }
 
-func (u *UserUsecase) GetUser(ctx context.Context, id int) (domain.User, error) {
+func (u *UserUsecase) GetUser(ctx echo.Context, id int) (domain.User, error) {
 	return u.port.GetUser(ctx, id)
 }

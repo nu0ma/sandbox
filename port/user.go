@@ -1,10 +1,11 @@
 package port
 
 import (
-	"context"
 	"go-mock-test/domain"
+
+	"github.com/labstack/echo/v4"
 )
 
 type UserPort interface {
-	GetUser(ctx context.Context, id int) (domain.User, error)
+	GetUser(ctx echo.Context, id int) (domain.User, error)
 }
