@@ -1,0 +1,46 @@
+name: Jest
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  jest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Jest tests
+        run: npm run test
+
+      - name: Run Build
+        run: npm run build
+
+      # - name: Notify PR status
+      #   uses: actions/github-script@v4
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     script: |
+      #       const { data: { html_url: htmlUrl } } = await context.octokit.pulls.get({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         pull_number: context.payload.pull_request.number,
+      #       });
+      #       const { stdout } = await exec('npm run test -- --json');
+      #       const { testResults } = JSON.parse(stdout);
+      #       const message = testResults.map(result => {
+      #         const status = result.numFailingTests === 0 ? 'succeeded' : 'failed';
+      #         const testResult = result.testResults.map(r => `- ${r.fullName}: ${r.status}`).join('\n');
+      #         return `### ${result.testFilePath}\n\n${testResult}\n\n${result.numPassedTests} passed / ${result.numTotalTests} total / ${result.numFailedTests} failed / ${result.numPendingTests} pending\n\nThe test suite ${status}.`;
+      #       }).join('\n\n');
+      #       await context.octokit.issues.createComment({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         issue_number: context.payload.pull_request.number,
+      #         body: message,
+      #       });
