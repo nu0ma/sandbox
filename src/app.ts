@@ -10,7 +10,7 @@ import { logger } from './utils/logger';
 export const app = express();
 app.use(logMiddleware);
 
-app.get('/ping', (req, res) => {
+app.get('/health_check', (req, res) => {
   res.status(200).send('pong');
 });
 
