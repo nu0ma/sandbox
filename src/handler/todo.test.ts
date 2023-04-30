@@ -1,14 +1,10 @@
-import { getData } from '../lib/api';
+import * as Fetchers from '@/lib/api';
+
 import { getTodo, getTodos } from './todo';
+jest.mock('../lib/api');
 
-jest.mock('../lib/api', () => {
-  return {
-    getData: jest.fn(),
-  };
-});
-
-test('get todos', async () => {
-  (getData as jest.Mock).mockResolvedValue([
+test('データ取得成功時', async () => {
+  jest.spyOn(Fetchers, 'getData').mockResolvedValueOnce([
     {
       userId: 1,
       id: 1,
@@ -22,8 +18,8 @@ test('get todos', async () => {
       completed: false,
     },
   ]);
-
   const res = await getTodos();
+
   expect(res).toEqual({
     todos: [
       {
@@ -43,7 +39,7 @@ test('get todos', async () => {
 });
 
 test('get todo', async () => {
-  (getData as jest.Mock).mockResolvedValue({
+  jest.spyOn(Fetchers, 'getData').mockResolvedValueOnce({
     userId: 1,
     id: 1,
     title: 'delectus aut autem',

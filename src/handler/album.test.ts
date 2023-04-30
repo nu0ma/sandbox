@@ -1,11 +1,8 @@
-import { getData } from '../lib/api';
+import * as Fetchers from '@/lib/api';
+
 import { getAlbums } from './album';
 
-jest.mock('../lib/api', () => {
-  return {
-    getData: jest.fn(),
-  };
-});
+jest.mock('../lib/api');
 
 test('get album', async () => {
   const user = {
@@ -53,7 +50,10 @@ test('get album', async () => {
     },
   ];
 
-  (getData as jest.Mock).mockResolvedValueOnce(user).mockResolvedValue(albums);
+  jest
+    .spyOn(Fetchers, 'getData')
+    .mockResolvedValueOnce(user)
+    .mockResolvedValue(albums);
 
   const actual = await getAlbums('1');
 
