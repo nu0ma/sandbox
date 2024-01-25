@@ -1,17 +1,14 @@
-import { createRoot } from 'react-dom/client'
-import "./index.css"
+import './index.css';
+
+import { createRoot } from 'react-dom/client';
+
+import { Main } from './main';
 
 function App() {
-
-  return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+  return <Main />;
 }
 
-export default App
-
+export default App;
 
 class AppElement extends HTMLElement {
   constructor() {
