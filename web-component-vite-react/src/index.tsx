@@ -1,11 +1,12 @@
 import { createRoot } from 'react-dom/client'
+import "./index.css"
 
 function App() {
 
   return (
-    <>
-      Hello nu0ma
-    </>
+    <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
   )
 }
 
