@@ -7,8 +7,13 @@
     "dev": "vite",
     "dev:wc": "npm run build && npm run dev",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint:eslint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:prettier": "prettier --check .",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "fix:eslint": "npm run lint:eslint -- --fix",
+    "fix:prettier": "npm run lint:prettier -- --write",
+    "fix": "npm run fix:eslint && npm run fix:prettier"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -21,11 +26,15 @@
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.17",
-    "eslint": "^8.55.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-testing-library": "^6.2.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "postcss": "^8.4.33",
-    "react-to-webcomponent": "^2.0.0",
+    "prettier": "^3.2.4",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
