@@ -1,12 +1,13 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { logger } from "hono/logger";
 
 import { prettyJSON } from "hono/pretty-json";
-import { getPost } from "./usecase/post/getPost";
 import post from "./rest/post/post";
 
 const app = new Hono();
 app.use("*", prettyJSON());
+app.use("*", logger());
 app.notFound((c) => c.json({ message: "Not Found", ok: false }, 404));
 
 app.get("/v1/systems/ping", (c) => {
