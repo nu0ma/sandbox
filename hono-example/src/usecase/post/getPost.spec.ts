@@ -1,8 +1,11 @@
+import { expect, test, describe } from "vitest";
+import { vi } from "vitest";
+
 import { getPost } from "./getPost";
 import * as driver from "../../driver/post/getPost";
 
 describe("Get Post", () => {
-  it("should return a post", async () => {
+  test("should return a post", async () => {
     let post = {
       userId: 1,
       id: 1,
@@ -11,7 +14,7 @@ describe("Get Post", () => {
       body: "quia et suscipitsuscipit recusandae consequuntur expedita et cumreprehenderit molestiae ut ut quas totamnostrum rerum est autem sunt rem eveniet architecto",
     };
 
-    jest.spyOn(driver, "fetchPost").mockResolvedValue(post);
+    vi.spyOn(driver, "fetchPost").mockResolvedValue(post);
 
     const expected = post;
     const actual = await getPost("1");
