@@ -8,7 +8,7 @@ export default defineConfig({
     lib: {
       entry: './src/index.tsx',
       name: 'mywebcomponent',
-      fileName: 'bundle.js',
+      fileName: 'bundle',
     },
     target: 'es2020',
   },

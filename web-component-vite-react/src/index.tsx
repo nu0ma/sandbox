@@ -2,13 +2,7 @@ import './index.css';
 
 import { createRoot } from 'react-dom/client';
 
-import { Main } from './main';
-
-function App() {
-  return <Main />;
-}
-
-export default App;
+import { App } from './App';
 
 class AppElement extends HTMLElement {
   constructor() {
