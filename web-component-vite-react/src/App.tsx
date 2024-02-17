@@ -1,11 +1,35 @@
-import { Post } from './components/Post';
+import { css } from '@emotion/react';
 
 export const App = () => {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <h2>Posts</h2>
-      <Post />
+    {/* https://tech.uzabase.com/entry/2023/05/12/164505 */}
+      <p
+        css={css`
+          color: red;
+          font-weight: bold;
+          font-size: 50px;
+        `}
+      >
+        Hello
+      </p>
+      {/* <h1
+        css={css`
+          color: red;
+          font-weight: bold;
+          font-size: 50px;
+        `}
+      >
+        Hello world!
+      </h1>
+      <h2
+        css={css`
+          font-size: 50px;
+        `}
+      >
+        Posts
+      </h2>
+      <Post /> */}
     </>
   );
 };

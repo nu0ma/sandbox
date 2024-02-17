@@ -8,7 +8,7 @@ export const Post = () => {
 
   console.log(data);
 
-  if (!data) return <>Loading...</>;
+  if (!data) return <div>Loading...</div>;
 
   return <> Title: {data.title} </>;
 };
