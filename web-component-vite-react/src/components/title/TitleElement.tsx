@@ -2,13 +2,7 @@ import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import { createRoot } from 'react-dom/client';
 
-type Props = {
-  title: string;
-};
-
-export const Title = (props: Props) => {
-  return <> Title:{props.title}</>;
-};
+import { Title } from './TItle';
 
 export class TitleElement extends HTMLElement {
   constructor() {
