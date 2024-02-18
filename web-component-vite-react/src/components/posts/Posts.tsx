@@ -7,7 +7,6 @@ const Post = ({ title }: { title: string }) => {
 };
 
 export const Posts = () => {
-  // console.log(props.posts);
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
