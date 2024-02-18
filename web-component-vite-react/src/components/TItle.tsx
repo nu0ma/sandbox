@@ -14,22 +14,17 @@ export class TitleElement extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this.root = createRoot(this.shadowRoot);
   }
 
   static get observedAttributes() {
     return ['title'];
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (oldValue === newValue) return;
-    this.title = newValue;
-  }
-
   connectedCallback() {
+    const root = createRoot(this.shadowRoot!);
     const title = this.getAttribute('title') || '';
     const cache = createCache({ key: 'css', container: this.shadowRoot! });
-    this.root.render(
+    root.render(
       <CacheProvider value={cache}>
         <Title title={title} />
       </CacheProvider>,
