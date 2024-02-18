@@ -3,5 +3,13 @@ type Props = {
 };
 
 export const Title = (props: Props) => {
-  return <> Title:{props.title}</>;
+  return (
+    <h2
+      css={{
+        fontSize: 17,
+      }}
+    >
+      Title:{props.title}
+    </h2>
+  );
 };

@@ -8,7 +8,6 @@ import { getPost } from './api/getPost';
 
 export const App = () => {
   const { data } = useSWR('/api/posts', getPost);
-
   if (!data) return <div>Loading...</div>;
 
   console.log(data);
@@ -19,13 +18,21 @@ export const App = () => {
         css={css`
           color: red;
           font-weight: bold;
-          font-size: 50px;
+          font-size: 30px;
         `}
       >
-        Hello
+        Web Component with React
       </p>
       {/* <my-post title={data.title}></my-post> */}
-      <my-title title={data.title}></my-title>
+      <section
+        css={css`
+          border: 1px solid #000;
+          padding: 10px;
+        `}
+      >
+        <h3>attribute props</h3>
+        <my-title title={data.title}></my-title>
+      </section>
     </>
   );
 };
