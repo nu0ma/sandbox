@@ -14,9 +14,10 @@ func main() {
 
 	middleware.NewLoggingMiddleware(e)
 
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "hello")
+	e.GET("/v1/systems/ping", func(c echo.Context) error {
+		return c.String(http.StatusOK, "pong")
 	})
+
 	e.GET("/todo", rest.GetTodo)
 
 	e.Logger.Fatal(e.Start(":1323"))
