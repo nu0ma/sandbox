@@ -48,3 +48,18 @@ func (mr *MockIDBDriverMockRecorder) GetTodo() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTodo", reflect.TypeOf((*MockIDBDriver)(nil).GetTodo))
 }
+
+// GetUsers mocks base method.
+func (m *MockIDBDriver) GetUsers() (driver.UsersResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUsers")
+	ret0, _ := ret[0].(driver.UsersResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUsers indicates an expected call of GetUsers.
+func (mr *MockIDBDriverMockRecorder) GetUsers() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUsers", reflect.TypeOf((*MockIDBDriver)(nil).GetUsers))
+}

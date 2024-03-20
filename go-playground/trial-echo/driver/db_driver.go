@@ -6,8 +6,15 @@ type TodoResponse struct {
 	Title string
 }
 
+type User struct {
+	Name string
+}
+
+type UsersResponse = []User
+
 type IDBDriver interface {
 	GetTodo() (TodoResponse, error)
+	GetUsers() (UsersResponse, error)
 }
 
 func NewDBDriver() IDBDriver {
@@ -18,4 +25,8 @@ func (d *DBDriver) GetTodo() (TodoResponse, error) {
 	return TodoResponse{
 		Title: "hoge",
 	}, nil
+}
+
+func (d *DBDriver) GetUsers() (UsersResponse, error) {
+	panic("todo")
 }
