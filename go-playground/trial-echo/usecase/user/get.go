@@ -1,4 +1,4 @@
-package user
+package usecase
 
 import (
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"

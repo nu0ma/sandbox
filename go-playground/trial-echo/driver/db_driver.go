@@ -28,5 +28,9 @@ func (d *DBDriver) GetTodo() (TodoResponse, error) {
 }
 
 func (d *DBDriver) GetUsers() (UsersResponse, error) {
-	panic("todo")
+	return []User{
+		{
+			Name: "hoge",
+		},
+	}, nil
 }
