@@ -1,0 +1,18 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: api-skaffold
+build:
+  artifacts:
+    - image: api
+      context: ../../app/api # 移動先（docker buildを打つ場所）
+      docker:
+        dockerfile: ../../environments/api/Dockerfile # contextからのパス
+
+deploy:
+  helm:
+    releases:
+      - name: api-skaffold
+        chartPath: ./helm
+        valuesFiles:
+          - ./helm/values.yaml

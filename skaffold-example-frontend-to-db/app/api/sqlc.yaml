@@ -1,0 +1,10 @@
+version: "2"
+sql:
+  - schema: "db/schema.sql"
+    queries: "db/query.sql"
+    engine: "postgresql"
+    gen:
+      go:
+        package: "dao"
+        out: "driver/dao"
+        emit_json_tags: true

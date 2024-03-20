@@ -1,0 +1,33 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: db-skaffold
+build:
+  artifacts:
+    - image: db
+      context: .
+      docker:
+        dockerfile: Dockerfile
+deploy:
+  helm:
+    releases:
+      - name: db-skaffold
+        chartPath: ./helm
+        valuesFiles:
+          - ./helm/values.yaml
+portForward:
+  - resourceType: service
+    resourceName: db-svc
+    address: 0.0.0.0
+    port: 5432
+# profiles:
+#   - name: api-e2e
+#     patches:
+#       - op: add
+#         path: /deploy/helm/releases/0/setValues/port
+#         value:
+#           outside: 5432
+#       - op: add
+#         path: /portForward/0/port
+#         value:
+#           outside: 5432

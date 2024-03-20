@@ -1,0 +1,5 @@
+apiVersion: skaffold/v2beta21
+kind: Config
+requires:
+  - path: ./db/skaffold.yaml
+#  k exec -it  pod/db-deployment-6dd84d6fdf-r5snr -- psql -Ufastify -ppassword example -p 5432
