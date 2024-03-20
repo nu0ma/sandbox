@@ -28,5 +28,4 @@ func (g *TodoGateway) GetTodo(ctx echo.Context) (*domain.Todo, error) {
 	}
 
 	return todo, nil
-
 }
