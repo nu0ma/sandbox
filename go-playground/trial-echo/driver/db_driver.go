@@ -32,5 +32,11 @@ func (d *DBDriver) GetUsers() (UsersResponse, error) {
 		{
 			Name: "hoge",
 		},
+		{
+			Name: "fuga",
+		},
+		{
+			Name: "free",
+		},
 	}, nil
 }

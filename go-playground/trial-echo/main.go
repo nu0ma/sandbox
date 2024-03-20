@@ -9,21 +9,22 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/middleware"
-	rest "github.com/nu0ma/sandbox/go-playground/trial-echo/rest/todo"
+	todo_rest "github.com/nu0ma/sandbox/go-playground/trial-echo/rest/todo"
+	user_rest "github.com/nu0ma/sandbox/go-playground/trial-echo/rest/user"
 )
 
 func main() {
-
 	e := echo.New()
-
 	middleware.NewLoggingMiddleware(e)
 
 	e.GET("/v1/systems/ping", func(c echo.Context) error {
 		return c.String(http.StatusOK, "pong")
 	})
 
-	e.GET("/todo", rest.GetTodo)
+	e.GET("/todo", todo_rest.GetTodo)
+	e.GET("/users", user_rest.GetUsers)
 
+	// Graceful ShutDown
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 
