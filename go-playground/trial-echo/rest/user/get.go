@@ -14,7 +14,7 @@ func GetUsers(e echo.Context) error {
 	gateway := gateway.NewUserGateway(driver)
 	usecase := usecase.NewUserUsecase(gateway)
 
-	res, err := usecase.GetUsers()
+	res, err := usecase.GetUsers(e)
 
 	if err != nil {
 		return err

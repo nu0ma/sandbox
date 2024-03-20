@@ -1,7 +1,10 @@
 package port
 
-import "github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
+import (
+	"github.com/labstack/echo/v4"
+	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
+)
 
 type UserPort interface {
-	GetUsers() (*[]domain.User, error)
+	GetUsers(ctx echo.Context) (*[]domain.User, error)
 }

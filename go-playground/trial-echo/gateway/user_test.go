@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
+	"github.com/labstack/echo/v4"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/driver"
 	mock_driver "github.com/nu0ma/sandbox/go-playground/trial-echo/mock/driver"
@@ -29,9 +30,15 @@ func TestUserGateway_GetUsers(t *testing.T) {
 	type fields struct {
 		driver driver.IDBDriver
 	}
+
+	type args struct {
+		ctx echo.Context
+	}
+
 	tests := []struct {
 		name    string
 		fields  fields
+		args    args
 		want    *[]domain.User
 		wantErr bool
 	}{
@@ -39,6 +46,9 @@ func TestUserGateway_GetUsers(t *testing.T) {
 			name: "get users",
 			fields: fields{
 				driver: mockDriver,
+			},
+			args: args{
+				ctx: echo.New().NewContext(nil, nil),
 			},
 			want: &[]domain.User{
 				{
@@ -56,7 +66,7 @@ func TestUserGateway_GetUsers(t *testing.T) {
 			g := UserGateway{
 				driver: tt.fields.driver,
 			}
-			got, err := g.GetUsers()
+			got, err := g.GetUsers(tt.args.ctx)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("UserGateway.GetUsers() error = %v, wantErr %v", err, tt.wantErr)
 				return

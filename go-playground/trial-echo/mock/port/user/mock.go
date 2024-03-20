@@ -8,6 +8,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
+	echo "github.com/labstack/echo/v4"
 	domain "github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
 )
 
@@ -35,16 +36,16 @@ func (m *MockUserPort) EXPECT() *MockUserPortMockRecorder {
 }
 
 // GetUsers mocks base method.
-func (m *MockUserPort) GetUsers() (*[]domain.User, error) {
+func (m *MockUserPort) GetUsers(ctx echo.Context) (*[]domain.User, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetUsers")
+	ret := m.ctrl.Call(m, "GetUsers", ctx)
 	ret0, _ := ret[0].(*[]domain.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetUsers indicates an expected call of GetUsers.
-func (mr *MockUserPortMockRecorder) GetUsers() *gomock.Call {
+func (mr *MockUserPortMockRecorder) GetUsers(ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUsers", reflect.TypeOf((*MockUserPort)(nil).GetUsers))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUsers", reflect.TypeOf((*MockUserPort)(nil).GetUsers), ctx)
 }

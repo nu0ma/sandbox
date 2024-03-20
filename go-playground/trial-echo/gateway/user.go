@@ -1,6 +1,7 @@
 package gateway
 
 import (
+	"github.com/labstack/echo/v4"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/driver"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/port"
@@ -16,7 +17,7 @@ func NewUserGateway(driver driver.IDBDriver) port.UserPort {
 	}
 }
 
-func (g UserGateway) GetUsers() (*[]domain.User, error) {
+func (g UserGateway) GetUsers(ctx echo.Context) (*[]domain.User, error) {
 	resp, err := g.driver.GetUsers()
 	if err != nil {
 		return nil, err
