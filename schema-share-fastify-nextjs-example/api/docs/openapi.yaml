@@ -1,0 +1,179 @@
+openapi: 3.0.3
+info:
+  title: Schema Sharing with Fastify and Next.js
+  version: 1.0.0
+components:
+  schemas:
+    userSchemas:
+      type: object
+      properties:
+        getUserParam:
+          type: object
+          properties:
+            id:
+              type: string
+          required:
+            - id
+          additionalProperties: false
+        getUserResponse:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              age:
+                type: number
+            required:
+              - name
+              - age
+            additionalProperties: false
+        updateUserParam:
+          type: object
+          properties:
+            id:
+              type: string
+          required:
+            - id
+          additionalProperties: false
+        updateUserBody:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+            - name
+          additionalProperties: false
+        updateUserResponse:
+          type: object
+          properties:
+            name:
+              type: string
+            age:
+              type: number
+          required:
+            - name
+            - age
+          additionalProperties: false
+        createUserBody:
+          type: object
+          properties:
+            name:
+              type: string
+            age:
+              type: number
+          required:
+            - name
+            - age
+          additionalProperties: false
+        createUserResponse:
+          type: object
+          properties:
+            status:
+              type: string
+          required:
+            - status
+          additionalProperties: false
+        deleteUserParam:
+          type: object
+          properties:
+            id:
+              type: string
+          required:
+            - id
+          additionalProperties: false
+        deleteUserResponse:
+          type: object
+          properties:
+            status:
+              type: string
+          required:
+            - status
+          additionalProperties: false
+      required:
+        - getUserParam
+        - getUserResponse
+        - updateUserParam
+        - updateUserBody
+        - updateUserResponse
+        - createUserBody
+        - createUserResponse
+        - deleteUserParam
+        - deleteUserResponse
+      additionalProperties: false
+paths:
+  /health_check:
+    get:
+      responses:
+        "200":
+          description: Default Response
+  /user:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userSchemas/properties/createUserBody"
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/createUserResponse"
+  "/user/{id}":
+    get:
+      tags:
+        - User
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: id
+          required: true
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/getUserResponse"
+    put:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userSchemas/properties/updateUserBody"
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: id
+          required: true
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/updateUserResponse"
+    delete:
+      tags:
+        - User
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: id
+          required: true
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/deleteUserResponse"
