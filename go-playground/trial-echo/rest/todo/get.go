@@ -21,3 +21,17 @@ func GetTodo(e echo.Context) error {
 
 	return e.JSON(http.StatusOK, resp)
 }
+
+func GetUsers(e echo.Context) error {
+	// driver := driver.NewDBDriver()
+	// gateway := gateway.NewUserGateway()
+	// usecase := usecase.NewUserUsecase()
+
+	// resp, err := usecase.GetUsers()
+
+	// if err != nil {
+	// 	return err
+	// }
+
+	return e.JSON(http.StatusOK, nil)
+}
