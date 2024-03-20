@@ -10,7 +10,7 @@ type IDBDriver interface {
 	GetTodo() (TodoResponse, error)
 }
 
-func NewDBDriver() *DBDriver {
+func NewDBDriver() IDBDriver {
 	return &DBDriver{}
 }
 
