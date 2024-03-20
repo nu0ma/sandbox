@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	rest "github.com/nu0ma/sandbox/go-playground/trial-echo/rest/todo"
+	"github.com/nu0ma/sandbox/go-playground/trial-echo/handler"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "hello")
 	})
-	e.GET("/todo", rest.Get)
+	e.GET("/todo", handler.GetTodo)
 
 	e.Logger.Fatal(e.Start(":1323"))
 

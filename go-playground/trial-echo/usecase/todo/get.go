@@ -1,6 +1,8 @@
 package usecase
 
 import (
+	"log"
+
 	"github.com/labstack/echo/v4"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/port"
@@ -16,7 +18,12 @@ func NewTodoUsecase(port port.TodoPort) *TodoUsecase {
 	}
 }
 
-func (u *TodoUsecase) GetTodo(ctx echo.Context) (domain.Todo, error) {
+func (u *TodoUsecase) GetTodo(ctx echo.Context) (*domain.Todo, error) {
 	todo, err := u.port.GetTodo(ctx)
-	return todo, err
+
+	if err != nil {
+		log.Print("usecase error")
+		return nil,err
+	}
+	return todo, nil
 }

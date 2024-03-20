@@ -6,5 +6,5 @@ import (
 )
 
 type TodoPort interface {
-	GetTodo(ctx echo.Context) (domain.Todo, error)
+	GetTodo(ctx echo.Context) (*domain.Todo, error)
 }

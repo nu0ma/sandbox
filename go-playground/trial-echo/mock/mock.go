@@ -36,10 +36,10 @@ func (m *MockTodoPort) EXPECT() *MockTodoPortMockRecorder {
 }
 
 // GetTodo mocks base method.
-func (m *MockTodoPort) GetTodo(ctx echo.Context) (domain.Todo, error) {
+func (m *MockTodoPort) GetTodo(ctx echo.Context) (*domain.Todo, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetTodo", ctx)
-	ret0, _ := ret[0].(domain.Todo)
+	ret0, _ := ret[0].(*domain.Todo)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
