@@ -2,35 +2,21 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
+	"time"
 )
 
-func generator(msg string, quit chan bool) <-chan string {
-	ch := make(chan string)
-	go func() {
-		for {
-			select {
-			case ch <- fmt.Sprintf("%s", msg):
-				// nothing
-			case <-quit:
-				fmt.Println("quit")
-				return
-			}
-		}
-	}()
-
-	return ch
+func downloadJSON(u string) {
+	println(u)
+	time.Sleep(time.Second * 2)
 }
 
 func main() {
-	quit := make(chan bool)
-	ch := generator("Hi!", quit)
+	before := time.Now()
 
-	for i := rand.Intn(50); i >= 0; i-- {
-		fmt.Println(<-ch, i)
+	for i := 0; i < 100; i++ {
+		url := fmt.Sprintf("example.com/download?id=%d", i)
+		downloadJSON(url)
 	}
 
-	quit <- true
-	fmt.Printf("Bye!")
-
+	fmt.Printf("%v\n", time.Since(before))
 }
