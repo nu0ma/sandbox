@@ -2,15 +2,20 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"math/rand"
 )
 
-func generator(msg string) <-chan string {
+func generator(msg string, quit chan bool) <-chan string {
 	ch := make(chan string)
 	go func() {
-		for i := 0; ; i++ {
-			ch <- fmt.Sprintf("%s %d", msg, i)
-			time.Sleep(time.Second)
+		for {
+			select {
+			case ch <- fmt.Sprintf("%s", msg):
+				// nothing
+			case <-quit:
+				fmt.Println("quit")
+				return
+			}
 		}
 	}()
 
@@ -18,16 +23,14 @@ func generator(msg string) <-chan string {
 }
 
 func main() {
-	ch := generator("Hi!")
-	timeout := time.After(5 * time.Second)
+	quit := make(chan bool)
+	ch := generator("Hi!", quit)
 
-	for i := 0; i < 10; i++ {
-		select {
-		case s := <-ch:
-			fmt.Println(s)
-		case <-timeout:
-			fmt.Println("Waited too long!")
-			return
-		}
+	for i := rand.Intn(50); i >= 0; i-- {
+		fmt.Println(<-ch, i)
 	}
+
+	quit <- true
+	fmt.Printf("Bye!")
+
 }
