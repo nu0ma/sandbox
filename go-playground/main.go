@@ -13,16 +13,20 @@ func downloadJSON(u string) {
 
 func main() {
 	before := time.Now()
+	limit := make(chan struct{}, 20)
 
 	var wg sync.WaitGroup
 
 	for i := 0; i < 100; i++ {
 		wg.Add(1)
+
 		i := i
 		go func() {
+			limit <- struct{}{}
 			defer wg.Done()
 			url := fmt.Sprintf("example.com/download?id=%d", i)
 			downloadJSON(url)
+			<-limit
 		}()
 	}
 
