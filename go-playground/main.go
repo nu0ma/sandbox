@@ -1,21 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"sync"
-	"time"
 )
 
-func doSomething(wg *sync.WaitGroup) {
+func doSomething(wg *sync.WaitGroup, id int) {
 	defer wg.Done()
-	time.Sleep(100 * time.Second)
+	for i := 0; i < 1000000; i++ {
+		fmt.Printf("&d\n", id)
+	}
 }
 
 func main() {
 	var wg sync.WaitGroup
 
-	for i:=0; i<100; i++ {
+	for i := 0; i < 100000000; i++ {
 		wg.Add(1)
-		go doSomething(&wg)
+		go doSomething(&wg, i)
 	}
 	wg.Wait()
 }
