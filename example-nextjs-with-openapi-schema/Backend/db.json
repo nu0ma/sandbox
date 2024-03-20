@@ -1,0 +1,59 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "te",
+      "author": "te"
+    },
+    {
+      "id": 3,
+      "title": "1",
+      "author": "2"
+    },
+    {
+      "id": 4,
+      "title": "ad",
+      "author": "dadadddd"
+    },
+    {
+      "id": 5,
+      "title": "aa",
+      "author": "aaaa"
+    },
+    {
+      "id": 7,
+      "title": "wefafea",
+      "author": "fwafewafwa"
+    },
+    {
+      "id": 8,
+      "title": "fwewafewaffewafaweads",
+      "author": "dfasdf"
+    },
+    {
+      "id": 9,
+      "title": "awfawfweafw",
+      "author": "fwefawfewa"
+    },
+    {
+      "id": 10,
+      "title": "!",
+      "author": "!!!"
+    },
+    {
+      "id": 12,
+      "title": "121",
+      "author": "2"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
