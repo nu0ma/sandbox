@@ -19,12 +19,13 @@ func generator(msg string) <-chan string {
 
 func main() {
 	ch := generator("Hi!")
+	timeout := time.After(5 * time.Second)
 
 	for i := 0; i < 10; i++ {
 		select {
 		case s := <-ch:
 			fmt.Println(s)
-		case <-time.After(1 * time.Second):
+		case <-timeout:
 			fmt.Println("Waited too long!")
 			return
 		}
