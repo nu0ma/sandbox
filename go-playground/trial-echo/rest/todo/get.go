@@ -14,6 +14,7 @@ func GetTodo(e echo.Context) error {
 	gateway := gateway.NewTodoGateway(driver)
 	usecase := usecase.NewTodoUsecase(gateway)
 	resp, err := usecase.GetTodo(e)
+
 	if err != nil {
 		return err
 	}

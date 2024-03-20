@@ -7,7 +7,7 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/labstack/echo/v4"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
-	mock_port "github.com/nu0ma/sandbox/go-playground/trial-echo/mock"
+	mock_port "github.com/nu0ma/sandbox/go-playground/trial-echo/mock/port"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/port"
 )
 
