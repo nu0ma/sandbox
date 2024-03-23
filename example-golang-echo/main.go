@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
+	"github.com/nu0ma/sandbox/go-playground/trial-echo/logger"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/middleware"
 	todo_rest "github.com/nu0ma/sandbox/go-playground/trial-echo/rest/todo"
 	user_rest "github.com/nu0ma/sandbox/go-playground/trial-echo/rest/user"
@@ -15,6 +16,7 @@ import (
 
 func main() {
 	e := echo.New()
+	logger.Init()
 	middleware.NewLoggingMiddleware(e)
 
 	e.GET("/v1/systems/ping", func(c echo.Context) error {

@@ -10,8 +10,6 @@ import (
 )
 
 func NewLoggingMiddleware(e *echo.Echo) {
-	logger := logger.NewLogger()
-
 	e.Use(middleware.RequestLoggerWithConfig(
 		middleware.RequestLoggerConfig{
 			LogStatus:   true,
@@ -20,12 +18,12 @@ func NewLoggingMiddleware(e *echo.Echo) {
 			HandleError: true,
 			LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
 				if v.Error == nil {
-					logger.LogAttrs(context.Background(), slog.LevelInfo, "REQUEST",
+					logger.Logger.LogAttrs(context.Background(), slog.LevelInfo, "REQUEST",
 						slog.String("uri", v.URI),
 						slog.Int("status", v.Status),
 					)
 				} else {
-					logger.LogAttrs(context.Background(), slog.LevelError, "REQUEST_ERROR",
+					logger.Logger.LogAttrs(context.Background(), slog.LevelError, "REQUEST_ERROR",
 						slog.String("uri", v.URI),
 						slog.Int("status", v.Status),
 						slog.String("err", v.Error.Error()),
