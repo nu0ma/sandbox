@@ -10,21 +10,14 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/logger"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/middleware"
-	todo_rest "github.com/nu0ma/sandbox/go-playground/trial-echo/rest/todo"
-	user_rest "github.com/nu0ma/sandbox/go-playground/trial-echo/rest/user"
+	"github.com/nu0ma/sandbox/go-playground/trial-echo/route"
 )
 
 func main() {
 	e := echo.New()
 	logger.Init()
 	middleware.NewLoggingMiddleware(e)
-
-	e.GET("/v1/systems/ping", func(c echo.Context) error {
-		return c.String(http.StatusOK, "pong")
-	})
-
-	e.GET("/todo", todo_rest.GetTodo)
-	e.GET("/users", user_rest.GetUsers)
+	route.InitRoute(e)
 
 	// Graceful ShutDown
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
