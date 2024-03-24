@@ -1,7 +1,8 @@
 package usecase
 
 import (
-	"github.com/labstack/echo/v4"
+	"context"
+
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/port"
 )
@@ -16,7 +17,7 @@ func NewUserUsecase(port port.UserPort) *UserUsecase {
 	}
 }
 
-func (u *UserUsecase) GetUsers(ctx echo.Context) (*[]domain.User, error) {
+func (u *UserUsecase) GetUsers(ctx context.Context) (*[]domain.User, error) {
 	resp, err := u.port.GetUsers(ctx)
 	return resp, err
 }

@@ -11,11 +11,13 @@ import (
 )
 
 func GetUsers(e echo.Context) error {
+	ctx := e.Request().Context()
+	
 	driver := dao.New(config.Conn)
 	gateway := gateway.NewUserGateway(driver)
 	usecase := usecase.NewUserUsecase(gateway)
 
-	res, err := usecase.GetUsers(e)
+	res, err := usecase.GetUsers(ctx)
 
 	if err != nil {
 		return err

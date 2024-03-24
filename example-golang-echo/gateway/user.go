@@ -1,7 +1,8 @@
 package gateway
 
 import (
-	"github.com/labstack/echo/v4"
+	"context"
+
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/driver/dao"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/port"
@@ -17,9 +18,8 @@ func NewUserGateway(driver dao.Querier) port.UserPort {
 	}
 }
 
-func (g UserGateway) GetUsers(ctx echo.Context) (*[]domain.User, error) {
-	c := ctx.Request().Context()
-	resp, err := g.driver.GetUsers(c)
+func (g UserGateway) GetUsers(ctx context.Context) (*[]domain.User, error) {
+	resp, err := g.driver.GetUsers(ctx)
 	if err != nil {
 		return nil, err
 	}
