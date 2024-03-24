@@ -1,13 +1,13 @@
 package usecase
 
 import (
+	"context"
 	"reflect"
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/labstack/echo/v4"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
-	mock_port "github.com/nu0ma/sandbox/go-playground/trial-echo/mock/port/user"
+	mock_port "github.com/nu0ma/sandbox/go-playground/trial-echo/mock/port/port/mock"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/port"
 )
 
@@ -15,47 +15,47 @@ func TestUserUsecase_GetUsers(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	mockPort := mock_port.NewMockUserPort(ctrl)
-	mockPort.EXPECT().GetUsers(gomock.Any()).Return(
-		&[]domain.User{
-			{
-				Name: "hoge",
-			},
-			{
-				Name: "fuga",
-			},
-		}, nil,
-	)
+	mock_port := mock_port.NewMockUserPort(ctrl)
+	mock_port.EXPECT().GetUsers(gomock.Any()).Return(&[]domain.User{
+		{
+			Name:  "test1",
+			Email: "",
+		},
+		{
+			Name:  "test2",
+			Email: "",
+		},
+	}, nil)
 
 	type fields struct {
 		port port.UserPort
 	}
-
 	type args struct {
-		ctx echo.Context
+		ctx context.Context
 	}
-
 	tests := []struct {
 		name    string
-		args    args
 		fields  fields
+		args    args
 		want    *[]domain.User
 		wantErr bool
 	}{
 		{
-			name: "get user",
+			name: "",
 			fields: fields{
-				port: mockPort,
+				port: mock_port,
 			},
 			args: args{
-				ctx: echo.New().NewContext(nil, nil),
+				ctx: context.Background(),
 			},
 			want: &[]domain.User{
 				{
-					Name: "hoge",
+					Name:  "test1",
+					Email: "",
 				},
 				{
-					Name: "fuga",
+					Name:  "test2",
+					Email: "",
 				},
 			},
 			wantErr: false,

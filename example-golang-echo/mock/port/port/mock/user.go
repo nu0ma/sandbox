@@ -5,10 +5,10 @@
 package mock_port
 
 import (
+	context "context"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	echo "github.com/labstack/echo/v4"
 	domain "github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
 )
 
@@ -36,7 +36,7 @@ func (m *MockUserPort) EXPECT() *MockUserPortMockRecorder {
 }
 
 // GetUsers mocks base method.
-func (m *MockUserPort) GetUsers(ctx echo.Context) (*[]domain.User, error) {
+func (m *MockUserPort) GetUsers(ctx context.Context) (*[]domain.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUsers", ctx)
 	ret0, _ := ret[0].(*[]domain.User)
