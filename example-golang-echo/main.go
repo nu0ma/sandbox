@@ -8,22 +8,30 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/config"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/handler"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/logger"
-	"github.com/nu0ma/sandbox/go-playground/trial-echo/middleware"
 )
 
 func main() {
 	e := echo.New()
-	logger.Init()
-	middleware.NewLoggingMiddleware(e)
+
+	e.HideBanner = true
+	e.HidePort = true
+
+	e.Pre(middleware.RemoveTrailingSlash())
+	e.Use(middleware.Logger())
+	e.Use(middleware.Secure())
+	e.Use(middleware.Recover())
+	e.Use(middleware.Secure())
+
 	handler.InitRoute(e)
+	logger.Init()
 
 	// TODO:
 	config.InitConnection()
 
-	// Graceful ShutDown
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 
