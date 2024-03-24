@@ -3,22 +3,23 @@ package gateway
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/domain"
-	"github.com/nu0ma/sandbox/go-playground/trial-echo/driver"
+	"github.com/nu0ma/sandbox/go-playground/trial-echo/driver/dao"
 	"github.com/nu0ma/sandbox/go-playground/trial-echo/port"
 )
 
 type UserGateway struct {
-	driver driver.IDBDriver
+	driver dao.Querier
 }
 
-func NewUserGateway(driver driver.IDBDriver) port.UserPort {
+func NewUserGateway(driver dao.Querier) port.UserPort {
 	return &UserGateway{
 		driver: driver,
 	}
 }
 
 func (g UserGateway) GetUsers(ctx echo.Context) (*[]domain.User, error) {
-	resp, err := g.driver.GetUsers()
+	c := ctx.Request().Context()
+	resp, err := g.driver.GetUsers(c)
 	if err != nil {
 		return nil, err
 	}
@@ -26,7 +27,8 @@ func (g UserGateway) GetUsers(ctx echo.Context) (*[]domain.User, error) {
 	users := make([]domain.User, len(resp))
 	for i, u := range resp {
 		users[i] = domain.User{
-			Name: u.Name,
+			Name:  u.Name,
+			Email: u.Email,
 		}
 	}
 
