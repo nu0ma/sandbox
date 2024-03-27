@@ -1,26 +1,26 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"os"
-	"os/exec"
+	"os/signal"
+	"syscall"
+	"time"
 )
 
 func main() {
-	if len(os.Args) == 1 {
-		return
+	ctx := context.Background()
+	sigctx, cancel := signal.NotifyContext(ctx, syscall.SIGINT, syscall.SIGTERM)
+
+	defer cancel()
+
+	toctx, cancel2 := context.WithTimeout(ctx, time.Second*5)
+	defer cancel2()
+
+	select {
+	case <-sigctx.Done():
+		fmt.Println("signal")
+	case <-toctx.Done():
+		fmt.Println("timeout")
 	}
-
-	cmd := exec.Command(os.Args[1], os.Args[2:]...)
-	err := cmd.Run()
-
-	if err != nil {
-		panic(err)
-	}
-
-	state := cmd.ProcessState
-	fmt.Printf("%s\n", state.String())
-	fmt.Printf("Pid: %d\n", state.Pid())
-	fmt.Printf("System: %v\n", state.SystemTime())
-	fmt.Printf("User: %v\n", state.UserTime())
 }
