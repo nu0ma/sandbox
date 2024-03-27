@@ -7,5 +7,5 @@ import (
 )
 
 type UserPort interface {
-			GetUsers(ctx context.Context) (*[]domain.User, error)
+	GetUsers(ctx context.Context) (*[]domain.User, error)
 }
