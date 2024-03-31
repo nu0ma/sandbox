@@ -2,22 +2,23 @@ package main
 
 import (
 	"fmt"
+	"sync"
 )
 
+var id int
+
+func generateId(mutex *sync.Mutex) int {
+	mutex.Lock()
+	defer mutex.Unlock()
+	id++
+	return id
+}
+
 func main() {
-	tasks := []int{
-		1, 2, 3, 4, 5,
-	}
-
-	// var wg sync.WaitGroup
-	// wg.Add(5)
-
-	for _, tasks := range tasks {
+	var m sync.Mutex
+	for i := 0; i < 100; i++ {
 		go func() {
-			fmt.Println(tasks)
-			// wg.Done()
+			fmt.Println("id: %d", generateId(&m))
 		}()
 	}
-
-	// wg.Wait()
 }
