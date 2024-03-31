@@ -5,20 +5,23 @@ import (
 	"sync"
 )
 
-var id int
-
-func generateId(mutex *sync.Mutex) int {
-	mutex.Lock()
-	defer mutex.Unlock()
-	id++
-	return id
-}
-
 func main() {
-	var m sync.Mutex
-	for i := 0; i < 100; i++ {
-		go func() {
-			fmt.Println("id: %d", generateId(&m))
-		}()
+	var wg sync.WaitGroup
+
+	tasks := []string{
+		"hoge1",
+		"hoge2",
+		"hoge3",
 	}
+
+	wg.Add(len(tasks))
+
+	for _, task := range tasks {
+		go func(task string) {
+			fmt.Println(task)
+			wg.Done()
+		}(task)
+	}
+
+	wg.Wait()
 }
