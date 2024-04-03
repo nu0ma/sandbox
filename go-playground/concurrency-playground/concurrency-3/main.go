@@ -2,26 +2,32 @@ package main
 
 import (
 	"fmt"
-	"sync"
+	"time"
 )
 
 func main() {
-	var wg sync.WaitGroup
+	ch1 := make(chan int)
 
-	tasks := []string{
-		"hoge1",
-		"hoge2",
-		"hoge3",
+	// 5秒待ってからチャネルを閉じる
+	go func() {
+		fmt.Printf("go routine...\n")
+		time.Sleep(5 * time.Second)
+		close(ch1)
+	}()
+
+	counter := 0
+
+LOOP:
+	for {
+		select {
+		case <-ch1: // チャネルが閉じたらループから抜ける、その間に他のことができる
+			break LOOP
+		default:
+		}
+
+		counter++ // チャネルが閉じるまでここでcounter++で数値を増やす。並行に動作するGは5秒かかるので5秒分つまりcounterに5が入る。
+		time.Sleep(1 * time.Second)  //
 	}
 
-	wg.Add(len(tasks))
-
-	for _, task := range tasks {
-		go func(task string) {
-			fmt.Println(task)
-			wg.Done()
-		}(task)
-	}
-
-	wg.Wait()
+	fmt.Printf("%v\n", counter)
 }
