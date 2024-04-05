@@ -25,7 +25,7 @@ func doWork(done <-chan interface{}, strings <-chan string) <-chan interface{} {
 
 func main() {
 	done := make(chan interface{})
-	terminated := doWork(done, nil)
+	terminated := doWork(done, nil) // nilが入ってもリークにならない
 
 	go func() {
 		time.Sleep(time.Second)
