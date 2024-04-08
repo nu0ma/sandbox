@@ -6,11 +6,11 @@ func generator(done <-chan interface{}, numbers ...int) <-chan int {
 	ch := make(chan int, len(numbers))
 	go func() {
 		defer close(ch)
-		for _, i := range numbers {
+		for _, v := range numbers {
 			select {
 			case <-done:
 				return
-			case ch <- i:
+			case ch <- v:
 			}
 		}
 	}()
