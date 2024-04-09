@@ -29,7 +29,6 @@ func main() {
 	handler.InitRoute(e)
 	logger.Init()
 
-	// TODO:
 	config.InitConnection()
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
