@@ -25,12 +25,12 @@ func ErrorHandler(e echo.Context, err error) error {
 	switch appError.ErrCode {
 	case FindDataFailed:
 		logger.Logger.Error(string(json))
-		return e.JSON(http.StatusNotFound, appError.Message)
+		return echo.NewHTTPError(http.StatusNotFound, appError.Message)
 	case NAData:
 		logger.Logger.Error(string(json))
-		return e.JSON(http.StatusNotFound, appError.Message)
+		return echo.NewHTTPError(http.StatusNotFound, appError.Message)
 	default:
 		logger.Logger.Error(string(json))
-		return e.JSON(http.StatusInternalServerError, appError.Message)
+		return echo.NewHTTPError(http.StatusInternalServerError, appError.Message)
 	}
 }

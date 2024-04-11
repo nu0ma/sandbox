@@ -33,11 +33,12 @@ func InitConnection() {
 
 	if err != nil {
 		logger.Logger.Error("Cannot connect to database")
+		panic(err)
 	}
 
 	if err = conn.Ping(context.Background()); err != nil {
 		logger.Logger.Error("Cannot ping to database: %v", err)
-		return
+		panic(err)
 	}
 
 	Conn = conn
