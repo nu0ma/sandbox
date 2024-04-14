@@ -1,14 +1,24 @@
 package main
 
+import (
+	"db-insert-and-api-request-concurrency/config"
+	"db-insert-and-api-request-concurrency/driver"
+	"db-insert-and-api-request-concurrency/usecase"
+)
 
 func main() {
-	// リクエストとしてidを受け取る（idがが大量の場合）
+	dsn := "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
+	conn, err := config.CreateConnection(dsn)
+	if err != nil {
+		panic(err)
+	}
 
-	// dbにインサート
+	defer conn.Close()
 
+	dbDriver := driver.NewDBDriver(conn)
+	apiDriver := driver.NewAPIDriver()
 
-	// apiにPOST
+	registerUsecase := usecase.NewRegisterUsecase(dbDriver, apiDriver)
+	registerUsecase.Register()
 
-
-	// エラー処理（どちらが失敗したか分かるように）
 }

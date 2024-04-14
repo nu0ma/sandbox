@@ -1,15 +1,25 @@
 package driver
 
+import (
+	"fmt"
+	"net/http"
+)
+
 type APIDriver struct{}
 
 type APIDriverInterface interface {
-	Post()
+	Post() error
 }
 
 func NewAPIDriver() APIDriverInterface {
 	return &APIDriver{}
 }
 
-func (d *APIDriver) Post() {
-	// ここに実装
+func (d *APIDriver) Post() error {
+	resp, err := http.Post("https://jsonplaceholder.typicode.com/posts", "application/json", nil)
+	if err != nil {
+		return fmt.Errorf("failed to post: %w", err)
+	}
+	defer resp.Body.Close()
+	return nil
 }
