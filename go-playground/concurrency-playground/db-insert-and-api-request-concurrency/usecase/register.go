@@ -3,6 +3,7 @@ package usecase
 import (
 	"db-insert-and-api-request-concurrency/driver"
 	"fmt"
+	"sync"
 )
 
 type RegisterUsecase struct {
@@ -22,44 +23,31 @@ func NewRegisterUsecase(dbDriver driver.DBDriverInterface, apiDriver driver.APID
 }
 
 func (u *RegisterUsecase) Register(done <-chan interface{}) error {
-	resultChan := make(chan Result)
-	defer close(resultChan)
+
+	var wg sync.WaitGroup
+	var registerError error
+
+	wg.Add(2)
 
 	go func() {
+		defer wg.Done()
 		err := u.dbDriver.Post()
-
-		for {
-			select {
-			case <-done:
-				return
-			case resultChan <- Result{Error: err}:
-			}
+		if err != nil {
+			registerError = err
+			fmt.Println(err)
 		}
 	}()
 
 	go func() {
+		defer wg.Done()
 		err := u.apiDriver.Post()
-		for {
-			select {
-			case <-done:
-				return
-			case resultChan <- Result{Error: err}:
-			}
+		if err != nil {
+			registerError = err
+			fmt.Println(err)
 		}
 	}()
 
-	var t Result
-	for i := 0; i < 2; i++ {
-		select {
-		case <-done:
-			fmt.Println("cancelled")
-			return nil
-		case t = <-resultChan:
-			if t.Error != nil {
-				return fmt.Errorf("failed to register: %w", t.Error)
-			}
-		}
-	}
+	wg.Wait()
 
-	return t.Error
+	return registerError
 }
