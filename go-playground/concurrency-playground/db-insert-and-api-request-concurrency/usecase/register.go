@@ -6,14 +6,14 @@ import (
 )
 
 type RegisterUsecase struct {
-	db_driver  driver.DBDriverInterface
-	api_driver driver.APIDriverInterface
+	dbDriver  driver.DBDriverInterface
+	apiDriver driver.APIDriverInterface
 }
 
-func NewRegisterUsecase(db_driver driver.DBDriverInterface, api_driver driver.APIDriverInterface) *RegisterUsecase {
+func NewRegisterUsecase(dbDriver driver.DBDriverInterface, apiDriver driver.APIDriverInterface) *RegisterUsecase {
 	return &RegisterUsecase{
-		db_driver:  db_driver,
-		api_driver: api_driver,
+		dbDriver:  dbDriver,
+		apiDriver: apiDriver,
 	}
 }
 
