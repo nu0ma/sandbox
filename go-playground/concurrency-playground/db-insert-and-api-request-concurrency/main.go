@@ -19,6 +19,15 @@ func main() {
 	apiDriver := driver.NewAPIDriver()
 
 	registerUsecase := usecase.NewRegisterUsecase(dbDriver, apiDriver)
-	registerUsecase.Register()
+
+	done := make(chan interface{})
+
+	usecaseError := registerUsecase.Register(done)
+
+	if usecaseError != nil {
+		panic(usecaseError)
+	}
+
+	defer close(done)
 
 }
