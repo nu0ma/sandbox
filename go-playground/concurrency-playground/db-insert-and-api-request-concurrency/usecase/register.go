@@ -23,17 +23,21 @@ func NewRegisterUsecase(dbDriver driver.DBDriverInterface, apiDriver driver.APID
 }
 
 func (u *RegisterUsecase) Register(done <-chan interface{}) error {
+	errorChan := make(chan error, 2)
 
 	var wg sync.WaitGroup
-	var registerError error
-
 	wg.Add(2)
 
 	go func() {
 		defer wg.Done()
 		err := u.dbDriver.Post()
 		if err != nil {
-			registerError = err
+			select {
+			case errorChan <- err:
+			case <-done:
+				return
+			}
+
 			fmt.Println(err)
 		}
 	}()
@@ -42,12 +46,17 @@ func (u *RegisterUsecase) Register(done <-chan interface{}) error {
 		defer wg.Done()
 		err := u.apiDriver.Post()
 		if err != nil {
-			registerError = err
-			fmt.Println(err)
+			select {
+			case errorChan <- err:
+			case <-done:
+				return
+			}
 		}
 	}()
 
 	wg.Wait()
+	close(errorChan)
 
-	return registerError
+	return <-errorChan
+
 }
