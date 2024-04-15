@@ -34,6 +34,7 @@ func (u *RegisterUsecase) Register(done <-chan interface{}) error {
 		if err != nil {
 			select {
 			case errorChan <- err:
+				fmt.Println("db err", err)
 			case <-done:
 				return
 			}
@@ -48,6 +49,7 @@ func (u *RegisterUsecase) Register(done <-chan interface{}) error {
 		if err != nil {
 			select {
 			case errorChan <- err:
+				fmt.Println("api err", err)
 			case <-done:
 				return
 			}
@@ -58,5 +60,4 @@ func (u *RegisterUsecase) Register(done <-chan interface{}) error {
 	close(errorChan)
 
 	return <-errorChan
-
 }

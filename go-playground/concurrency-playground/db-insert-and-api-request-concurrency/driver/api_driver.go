@@ -7,6 +7,7 @@ import (
 
 type APIDriver struct{}
 
+//go:generate mockery --name API
 type APIDriverInterface interface {
 	Post() error
 }

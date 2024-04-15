@@ -11,6 +11,7 @@ type DBDriver struct {
 	conn *sql.DB
 }
 
+//go:generate mockery --name DB
 type DBDriverInterface interface {
 	Post() error
 }
