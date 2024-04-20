@@ -1,30 +1,21 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-)
+import "fmt"
 
 func main() {
 	i := 0
-
-	mutex := sync.Mutex{}
+	ch := make(chan int)
 
 	go func() {
-		mutex.Lock()
-		i++
-		mutex.Unlock()
+		ch <- 1
 	}()
 
 	go func() {
-		mutex.Lock()
-		i++
-		mutex.Unlock()
+		ch <- 1
 	}()
 
-	mutex.Lock()
+	i += <-ch
+	i += <-ch
 
 	fmt.Println(i)
-	mutex.Unlock()
-
 }
