@@ -1,8 +1,30 @@
 package main
 
-import "sandbox/server"
+import (
+	"fmt"
+	"sync"
+)
 
 func main() {
-	s1 := server.New("localhost", 8080)
-	s2 := server.New("localhost", 90, server.WithTimeout(80))
+	i := 0
+
+	mutex := sync.Mutex{}
+
+	go func() {
+		mutex.Lock()
+		i++
+		mutex.Unlock()
+	}()
+
+	go func() {
+		mutex.Lock()
+		i++
+		mutex.Unlock()
+	}()
+
+	mutex.Lock()
+
+	fmt.Println(i)
+	mutex.Unlock()
+
 }
