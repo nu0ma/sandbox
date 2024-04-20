@@ -3,19 +3,15 @@ package main
 import "fmt"
 
 func main() {
+
 	i := 0
-	ch := make(chan int)
+	ch := make(chan any, 1) // バッファがあると受信完了を待たない（1回分はすでにあるので）
 
 	go func() {
-		ch <- 1
+		i = 1
+		<-ch
 	}()
 
-	go func() {
-		ch <- 1
-	}()
-
-	i += <-ch
-	i += <-ch
-
+	ch <- 1
 	fmt.Println(i)
 }
