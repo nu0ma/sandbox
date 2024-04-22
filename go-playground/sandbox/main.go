@@ -1,17 +1,39 @@
 package main
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+	"time"
+)
+
+func longProcess(ctx context.Context) {
+	fmt.Println("Started...")
+	time.Sleep(time.Second * 2)
+
+	select {
+	case <-ctx.Done():
+		fmt.Println("Cancel at longProcess")
+	default:
+		fmt.Println("Done at longProcess")
+	}
+}
 
 func main() {
-
-	i := 0
-	ch := make(chan any, 1) // バッファがあると受信完了を待たない（1回分はすでにあるので）
+	done := make(chan any)
+	timeout := time.Second * 1
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
 
 	go func() {
-		i = 1
-		<-ch
+		longProcess(ctx)
+		done <- true
 	}()
 
-	ch <- 1
-	fmt.Println(i)
+	select {
+	case <-done:
+		fmt.Println("Completed!")
+	case <-ctx.Done():
+		fmt.Println("Cancel", ctx.Err().Error())
+	}
+
 }
