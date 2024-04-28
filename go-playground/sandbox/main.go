@@ -1,39 +1,25 @@
 package main
 
-import (
-	"context"
-	"fmt"
-	"time"
-)
+import "fmt"
 
-func longProcess(ctx context.Context) {
-	fmt.Println("Started...")
-	time.Sleep(time.Second * 2)
-
-	select {
-	case <-ctx.Done():
-		fmt.Println("Cancel at longProcess")
-	default:
-		fmt.Println("Done at longProcess")
+func check(id string) []int {
+	result := make([]int, 0)
+	if id == "" {
+		return nil
 	}
+	return result
 }
 
 func main() {
-	done := make(chan any)
-	timeout := time.Second * 1
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer cancel()
+	id := ""
 
-	go func() {
-		longProcess(ctx)
-		done <- true
-	}()
+	r := check(id)
 
-	select {
-	case <-done:
-		fmt.Println("Completed!")
-	case <-ctx.Done():
-		fmt.Println("Cancel", ctx.Err().Error())
+	if len(r) != 0 {
+		fmt.Println("r is not nil")
+		return
 	}
+
+	fmt.Println("r is  nil")
 
 }
