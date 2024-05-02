@@ -2,12 +2,13 @@ package main
 
 import "fmt"
 
-func f(s []int) {
-	_ = append(s, 10)
-}
-
 func main() {
-	s := []int{1, 2, 3}
-	f(s[:2:2])
-	fmt.Println(s) 
+	s1 := make([]int, 1, 100000000)
+	fmt.Println(len(s1))
+	fmt.Println(cap(s1))
+
+	s2 := s1[:5]
+
+	fmt.Println(len(s2))
+	fmt.Println(cap(s2)) //100000000
 }
