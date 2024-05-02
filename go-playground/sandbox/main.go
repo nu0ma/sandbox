@@ -3,8 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	src := []int{1, 2, 3}
-	var dst []int
-	copy(dst, src)
-	fmt.Println(dst)
+	s1 := []int{1, 2, 3}
+	s2 := s1[1:2]
+	s3 := append(s2, 10)
+	fmt.Println(s1) //{1,2,10}
+	fmt.Println(s3)
 }
