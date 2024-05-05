@@ -2,14 +2,39 @@ package main
 
 import "fmt"
 
+type Customer struct {
+	ID   int
+	Name string
+}
+
+type Store struct {
+	m map[int]*Customer
+}
+
+func (s *Store) storeCustomer(customers []Customer) {
+	for _, customer := range customers {
+		// fmt.Printf("%p\n", &customer)
+		// s.m[customer.ID] = &customer
+		c := customer
+		s.m[customer.ID] = &c
+	}
+}
+
 func main() {
-	s1 := make([]int, 1, 100000000)
-	fmt.Println(len(s1))
-	fmt.Println(cap(s1))
+	customers := []Customer{
+		{ID: 1, Name: "John"},
+		{ID: 2, Name: "Doe"},
+		{ID: 3, Name: "Smith"},
+	}
 
-	s2 := make([]int, 5)
-	copy(s2, s1)
+	store := Store{
+		m: map[int]*Customer{},
+	}
 
-	fmt.Println(len(s2))
-	fmt.Println(cap(s2)) //5
+	store.storeCustomer(customers)
+
+	for _, customer := range customers {
+		fmt.Println(store.m[customer.ID])
+	}
+
 }
