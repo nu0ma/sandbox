@@ -1,13 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	s := "hållo"
-	fmt.Println(len(s)) // 6
 
-	runes := []rune(s)
-	for i, r := range runes {
-		fmt.Printf("%d,%c\n", i, r)
-	}
+	fmt.Println(strings.TrimRight("123oxo", "xo"))  //123
+	fmt.Println(strings.TrimSuffix("123oxo", "xo")) //123o
+	fmt.Println(strings.Trim("123oxo", "xo"))       // 123
+
 }
