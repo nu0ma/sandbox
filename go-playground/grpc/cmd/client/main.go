@@ -8,8 +8,10 @@ import (
 	hellopb "mygrpc/pkg/grpc"
 	"os"
 
+	_ "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/status"
 )
 
 var (
@@ -37,24 +39,26 @@ func main() {
 	defer conn.Close()
 
 	client = hellopb.NewGreetingServiceClient(conn)
+	Hello()
 
-	for {
-		fmt.Println("1: send Request")
-		fmt.Println("2:exit")
-		fmt.Println("please enter >")
+	// 	for {
+	// 		fmt.Println("1: send Request")
+	// 		fmt.Println("2:exit")
+	// 		fmt.Println("please enter >")
 
-		scanner.Scan()
-		in := scanner.Text()
+	// 		scanner.Scan()
+	// 		in := scanner.Text()
 
-		switch in {
-		case "1":
-			Hello()
-		case "2":
-			fmt.Println("bye.")
-			goto M
-		}
-	}
-M:
+	//		switch in {
+	//		case "1":
+	//			Hello()
+	//		case "2":
+	//			fmt.Println("bye.")
+	//			goto M
+	//		}
+	//	}
+	//
+	// M:
 }
 
 func Hello() {
@@ -69,6 +73,11 @@ func Hello() {
 	res, err := client.Hello(context.Background(), req)
 	if err != nil {
 		fmt.Println(err)
+		if stat, ok := status.FromError(err); ok {
+			fmt.Printf("code:%s\n", stat.Code())
+			fmt.Printf("message: %s\n", stat.Message())
+			fmt.Printf("details:%s\n", stat.Details())
+		}
 	} else {
 		fmt.Println(res.GetMessage())
 	}
