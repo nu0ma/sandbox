@@ -59,7 +59,8 @@ func main() {
 	}
 
 	s := grpc.NewServer(
-		grpc.UnaryInterceptor(myUnaryServerInterceptor1),
+		grpc.ChainUnaryInterceptor(myUnaryServerInterceptor1,
+			myUnaryServerInterceptor2),
 	)
 
 	hellopb.RegisterGreetingServiceServer(s, NewMyServer())
