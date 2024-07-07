@@ -11,6 +11,7 @@ import (
 	_ "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 )
 
@@ -43,23 +44,23 @@ func main() {
 	client = hellopb.NewGreetingServiceClient(conn)
 	Hello()
 
-	// 	for {
-	// 		fmt.Println("1: send Request")
-	// 		fmt.Println("2:exit")
-	// 		fmt.Println("please enter >")
+	// for {
+	// 	fmt.Println("1: send Request")
+	// 	fmt.Println("2:exit")
+	// 	fmt.Println("please enter >")
 
-	// 		scanner.Scan()
-	// 		in := scanner.Text()
+	// 	scanner.Scan()
+	// 	in := scanner.Text()
 
-	//		switch in {
-	//		case "1":
-	//			Hello()
-	//		case "2":
-	//			fmt.Println("bye.")
-	//			goto M
-	//		}
-	//	}
-	//
+	// 	switch in {
+	// 	case "1":
+	// 		Hello()
+	// 	case "2":
+	// 		fmt.Println("bye.")
+	// 		goto M
+	// 	}
+	// }
+
 	// M:
 }
 
@@ -72,7 +73,11 @@ func Hello() {
 		Name: name,
 	}
 
-	res, err := client.Hello(context.Background(), req)
+	ctx := context.Background()
+	md := metadata.New(map[string]string{"type": "unary", "from": "client"})
+	ctx = metadata.NewOutgoingContext(ctx, md)
+
+	res, err := client.Hello(ctx, req)
 	if err != nil {
 		fmt.Println(err)
 		if stat, ok := status.FromError(err); ok {
