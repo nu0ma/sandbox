@@ -34,6 +34,16 @@ func (s *myServer) Hello(ctx context.Context, req *hellopb.HelloRequest) (*hello
 		log.Println(md)
 	}
 
+	headerMD := metadata.New(map[string]string{"type": "unary", "from": "server", "in": "header"})
+	if err := grpc.SetHeader(ctx, headerMD); err != nil {
+		return nil, err
+	}
+
+	trailerMD := metadata.New(map[string]string{"type": "unknown", "from": "server", "in": "trailer"})
+	if err := grpc.SetTrailer(ctx, trailerMD); err != nil {
+		return nil, err
+	}
+
 	return &hellopb.HelloResponse{
 		Message: fmt.Sprintf("Hello %s!", req.GetName()),
 	}, nil

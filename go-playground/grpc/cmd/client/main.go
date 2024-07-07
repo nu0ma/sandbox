@@ -77,7 +77,9 @@ func Hello() {
 	md := metadata.New(map[string]string{"type": "unary", "from": "client"})
 	ctx = metadata.NewOutgoingContext(ctx, md)
 
-	res, err := client.Hello(ctx, req)
+	var header, trailer metadata.MD
+
+	res, err := client.Hello(ctx, req, grpc.Header(&header), grpc.Trailer(&trailer))
 	if err != nil {
 		fmt.Println(err)
 		if stat, ok := status.FromError(err); ok {
@@ -86,6 +88,8 @@ func Hello() {
 			fmt.Printf("details:%s\n", stat.Details())
 		}
 	} else {
+		fmt.Println(header)
+		fmt.Println(trailer)
 		fmt.Println(res.GetMessage())
 	}
 }
