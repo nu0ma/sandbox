@@ -1,0 +1,5 @@
+namePrefix: estate-
+configMapGenerator:
+  - name: config
+    files:
+      - config.yaml

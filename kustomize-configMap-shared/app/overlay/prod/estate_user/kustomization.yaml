@@ -1,0 +1,14 @@
+resources:
+  - ../../base
+namePrefix: prod-
+patches:
+  - path: deployment.yaml
+    target:
+      kind: Deployment
+      name: my-app
+      namespace: default
+configMapGenerator:
+  - files:
+      - ../estate_user/config.yaml
+    name: config
+    namespace: estate

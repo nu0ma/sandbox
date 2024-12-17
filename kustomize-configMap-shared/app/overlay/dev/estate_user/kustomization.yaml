@@ -1,0 +1,6 @@
+resources:
+  - ../../../base/estate_user/
+  - ../estate_shared
+namePrefix: dev-
+patches:
+  - path: deployment.yaml
