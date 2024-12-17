@@ -1,0 +1,1 @@
+# KustomizeでconfigMapGeneratorを使ってConfigMapを複数サービス間で共有するサンプル
